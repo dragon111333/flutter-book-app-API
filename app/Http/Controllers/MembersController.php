@@ -16,11 +16,11 @@ class MembersController extends Controller
     }
 
     // //แสดงเฉพาะข้อมูลที่มีค่าฟิวด์ p_id เท่ากับค่าของตัวแปร $id
-    // public function readOne($id)
-    // {
-    //     $data = Users::where('u_id', $id)->get();
-    //     return response()->json($data, 200);
-    // }
+    public function readOne($id)
+    {
+        $data = Member::where('id', $id)->get();
+        return response()->json($data, 200);
+    }
 
     //เพิ่มข้อมูลใหม่
     public function create(Request $request)
@@ -43,29 +43,22 @@ class MembersController extends Controller
      }
 
     // //อัพเดทข้อมูล เฉพาะรายการที่มีฟิวด์ p_id เท่ากับค่าของตัวแปร $id
-    // public function update($id, Request $request)
-    // {
-    //     //ค้นหาข้อมูลตามฟิวด์ p_id แล้วนำมาเก็บไว้ในตัวแปร $product
-    //     $users = Users::findOrFail($id);
-        
-    //     //จัดเก็บข้อมูลที่ส่งมาแก้ไขไว้ตัวแปร data
-    //     $data = $request->all();
-    //     //ตรวจสอบก่อนว่ามีไฟล์ upload มาหรือไม่
-    //     //if ($request->hasFile('p_img')) {
-    //         //อัพโหลดไฟล์ โดยเรียกใช้ฟังก์ชัน uploadFile
-    //      //   $data = $this->uploadFile($request);
-    //         //ลบไฟล์เดิมทิ้ง
-    //      //   if (file_exists("/home/user4/foodapp/public/img/".$product->p_img)) {
-    //           //  unlink("/home/user4/foodapp/public/img/".$product->p_img);
-    //    //     }
-    //   //  }
-    //     //ทำการแก้ไขข้อมูลตามข้อมูลที่ส่งมาในตัวแปร $data
-    //     $users->update($data);
-    //     //ทำการแก้ไขข้อมูลตามข้อมูลที่ส่งมาในตัวแปร $request
-        
-    //     //ส่งค่าข้อมูลที่ได้อัพเดทแล้ว
-    //     return response()->json($users, 202);
-    // }
+    public function update($id, Request $request)
+    {
+        $member = Member::findOrFail($id);
+        $data = $request->all();
+        //ตรวจสอบก่อนว่ามีไฟล์ upload มาหรือไม่
+        //if ($request->hasFile('p_img')) {
+            //อัพโหลดไฟล์ โดยเรียกใช้ฟังก์ชัน uploadFile
+         //   $data = $this->uploadFile($request);
+            //ลบไฟล์เดิมทิ้ง
+         //   if (file_exists("/home/user4/foodapp/public/img/".$product->p_img)) {
+              //  unlink("/home/user4/foodapp/public/img/".$product->p_img);
+       //     }
+      //  }
+        $member->update($data);
+        return response()->json($member, 202);
+    }
 
     // //ลบข้อมูล เฉพาะรายการที่มีฟิวด์ p_id เท่ากับค่าของตัวแปร $id
     public function delete($id)

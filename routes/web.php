@@ -19,9 +19,21 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'api'], function () use ($router) {
 
+    $router->get('products', ['uses' => 'ProductsController@readAll']);
+    $router->get('products/{id}', ['uses' => 'ProductsController@readOne']);
+    $router->post('products', ['uses' => 'ProductsController@create']);
+    $router->put('products/{id}', ['uses' => 'ProductsController@update']);
+    $router->delete('products/{id}', ['uses' => 'ProductsController@delete']);
+
+    $router->get('products_image', ['uses' => 'ProductsController@showAllWithImage']);
+    $router->get('products_image/{id}', ['uses' => 'ProductsController@showOneWithImage']);
+
     $router->get('members', ['uses' => 'MembersController@readAll']);
+    $router->get('members/{id}', ['uses' => 'MembersController@readOne']);
+
     $router->post("memberLogin", ["uses"=>'MembersController@login']);
     $router->post("members", ["uses"=>'MembersController@create']);
+    $router->put("members/{id}", ["uses"=>'MembersController@update']);
     $router->delete("members/{id}", ["uses"=>'MembersController@delete']);
 
 
